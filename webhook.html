@@ -8,6 +8,7 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Useful tools | Webhook Sender</title>
     <link rel="stylesheet" href="./assets/bootstrap.min.css">
+    <link rel="stylesheet" href="./assets/style.css">
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.1/css/all.css"
         integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous">
     <script src="https://code.jquery.com/jquery-3.3.1.min.js"
@@ -20,7 +21,7 @@
         crossorigin="anonymous"></script>
 </head>
 
-<body style="height: 100%; display: flex; flex-direction: column;">
+<body class="bg-primary" style="height: 100%; display: flex; flex-direction: column;">
     <div style="flex: 1 0 auto;">
         <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
             <a class="navbar-brand" href="index.html">Useful Tools</a>
@@ -36,95 +37,95 @@
                             data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                             Tools
                         </a>
-                        <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                            <a class="dropdown-item" href="webhook.html">Webhook Sender</a>
+                        <div class="dropdown-menu bg-dark" aria-labelledby="navbarDropdown">
+                            <a class="dropdown-item text-light" href="webhook.html">Webhook Sender</a>
                         </div>
                     </li>
                 </ul>
                 <ul class="navbar-nav ml-auto">
-                    <li class="nav-item"><a href="https://paypal.me/officialrewards" document.getElementById="_blank"
-                            class="nav-link">Money Supporters</a></li>
+                    <li class="nav-item"><a href="https://paypal.me/officialrewards" target="_blank"
+                            class="nav-link text-info">Money Supporters</a></li>
                 </ul>
             </div>
         </nav>
         <main>
             <section class="container py-5">
-                <div class="card shadow-sm my-5">
-                    <div class="card-header bg-dark text-light">
+                <div class="card bg-dark shadow-sm my-5">
+                    <div class="card-header text-light">
                         <h3 class="card-title" style="display: inline;">Webhook Sender</h3>
                     </div>
-                    <div class="card-body ">
+                    <div class="card-body bg-dark text-light">
                         <div class="form-group">
                             <label>Webhook</label>
                             <div class="input-group">
-                                <input id="webhook-id" type="text" class="form-control" placeholder="Webhook ID"
+                                <input id="webhook-id" type="text" class="bg-primary text-light form-control" placeholder="Webhook ID"
                                     required>
                             </div>
                             <br>
                             <div class="input-group">
-                                <input id="webhook-token" type="text" class="form-control" placeholder="Webhook Token"
+                                <input id="webhook-token" type="text" class="bg-primary text-light form-control" placeholder="Webhook Token"
                                     required>
                             </div>
                         </div>
                         <div id="webhook-form" class="py-2">
                             <div class="form-group pb-3">
                                 <label>Unembedded</label>
-                                <textarea id="content" rows="5" class="form-control" placeholder="Content"></textarea>
+                                <textarea id="content" rows="5" class="bg-primary text-light form-control" placeholder="Content"></textarea>
                             </div>
                             <label>Basics</label>
                             <div class="form-row">
                                 <div class="form-group col-10">
-                                    <input id="embed-title" type="text" class="form-control" placeholder="Title">
+                                    <input id="embed-title" type="text" class="bg-primary text-light form-control" placeholder="Title">
                                 </div>
                                 <div class="form-group col-2">
-                                    <input id="embed-color" type="color" class="form-control">
+                                    <input id="embed-color" type="color" class="bg-primary text-light form-control">
                                 </div>
                             </div>
                             <div class="form-group">
-                                <textarea id="embed-description" rows="5" class="form-control"
+                                <textarea id="embed-description" rows="5" class="bg-primary text-light form-control"
                                     placeholder="Description"></textarea>
                             </div>
                             <div class="form-group pb-3">
-                                <input id="embed-url" type="url" class="form-control" placeholder="Url">
+                                <input id="embed-url" type="url" class="bg-primary text-light form-control" placeholder="Url">
                             </div>
                             <label>Author</label>
                             <div class="form-row">
                                 <div class="form-group col">
-                                    <input id="embed-author-name" type="text" class="form-control" placeholder="Name">
+                                    <input id="embed-author-name" type="text" class="bg-primary text-light form-control" placeholder="Name">
                                 </div>
                                 <div class="form-group col">
-                                    <input id="embed-author-icon_url" type="url" class="form-control"
+                                    <input id="embed-author-icon_url" type="url" class="bg-primary text-light form-control"
                                         placeholder="Icon-Url">
                                 </div>
                             </div>
                             <div class="form-group pb-3">
-                                <input id="embed-author-url" type="text" class="form-control" placeholder="Url">
+                                <input id="embed-author-url" type="text" class="bg-primary text-light form-control" placeholder="Url">
                             </div>
                             <label>Images</label>
                             <div class="form-group">
-                                <input id="embed-thumbnail-url" type="url" class="form-control"
+                                <input id="embed-thumbnail-url" type="url" class="bg-primary text-light form-control"
                                     placeholder="Thumbnail-Url">
                             </div>
                             <div class="form-group pb-3">
-                                <input id="embed-image-url" type="url" class="form-control" placeholder="Image-Url">
+                                <input id="embed-image-url" type="url" class="bg-primary text-light form-control" placeholder="Image-Url">
                             </div>
                             <label>Footer</label>
                             <div class="form-row">
                                 <div class="form-group col">
-                                    <input id="embed-footer-text" type="text" class="form-control" placeholder="Text">
+                                    <input id="embed-footer-text" type="text" class="bg-primary text-light form-control" placeholder="Text">
                                 </div>
                                 <div class="form-group col">
-                                    <input id="embed-timestamp" type="datetime-local" class="form-control"
+                                    <input id="embed-timestamp" type="datetime-local" class="bg-primary text-light form-control"
                                         step="0.001">
                                 </div>
                             </div>
                             <div class="form-group pb-3">
-                                <input id="embed-footer-icon_url" type="url" class="form-control"
+                                <input id="embed-footer-icon_url" type="url" class="bg-primary text-light form-control"
                                     placeholder="Icon-Url">
                             </div>
                             <br>
                             <div id="submit-alerts" class="my-3"></div>
-                            <button class="btn btn-success float-right" id="submit" type="button">Send Embed</button>
+                            <button class="btn btn-primary float-right" id="submit" type="button">Send Embed</button>
                         </div>
                     </div>
                 </div>

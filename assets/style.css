@@ -1,0 +1,23 @@
+.dropdown-item:hover {
+  background-color: black;
+}
+
+p::selection,
+h1::selection,
+h2::selection,
+h3::selection,
+h4::selection,
+h5::selection,
+h6::selection,
+span::selection,
+input::selection,
+textarea::selection,
+label::selection {
+  background-color: black;
+  color: rgb(120, 120, 120);
+}
+
+a::selection {
+  background-color: black;
+  color: rgb(120, 120, 255);
+}
