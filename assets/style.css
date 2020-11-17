@@ -21,3 +21,13 @@ a::selection {
   background-color: black;
   color: rgb(120, 120, 255);
 }
+
+br::selection {
+    background-color: transparent;
+}
+
+.form-control,
+.form-control:focus  {
+    background-color: rgb(75, 85, 95);
+}
+
