@@ -31,3 +31,31 @@ br::selection {
     background-color: rgb(75, 85, 95);
 }
 
+.alert {
+  position: fixed;
+  width: 20%;
+  right: 20px;
+  top: 20px;
+}
+
+.alert-danger {
+  background-color: rgba(225, 100, 100, 0.4);
+  
+}
+
+.alert-success {
+  background-color: rgba(100, 225, 100, 0.4);
+  
+}
+
+.transition-fade-out {
+  visibility: hidden;
+  opacity: 0;
+  transition: visibility 0s linear 300ms, opacity 300ms;
+}
+
+.transition-fade-in {
+  visibility: visible;
+  opacity: 1;
+  transition: visibility 0s linear 300s, opacity 300ms;
+}
