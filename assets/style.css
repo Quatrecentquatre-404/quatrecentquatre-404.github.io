@@ -13,8 +13,13 @@ span::selection,
 input::selection,
 textarea::selection,
 label::selection {
-  background-color: black;
+  background-color: black !important;
   color: rgb(120, 120, 120);
+}
+
+:disabled {
+  cursor: no-drop;
+  background-color: #3C444C !important;
 }
 
 a::selection {
@@ -23,12 +28,12 @@ a::selection {
 }
 
 br::selection {
-    background-color: transparent;
+  background-color: transparent;
 }
 
 .form-control,
-.form-control:focus  {
-    background-color: rgb(75, 85, 95);
+.form-control:focus {
+  background-color: rgb(75, 85, 95);
 }
 
 .alert {
@@ -40,12 +45,10 @@ br::selection {
 
 .alert-danger {
   background-color: rgba(225, 100, 100, 0.4);
-  
 }
 
 .alert-success {
   background-color: rgba(100, 225, 100, 0.4);
-  
 }
 
 .transition-fade-out {
@@ -58,4 +61,13 @@ br::selection {
   visibility: visible;
   opacity: 1;
   transition: visibility 0s linear 300s, opacity 300ms;
+}
+
+label[for="ignore-blocked-phone"]:focus,
+label[for="ignore-blocked-phone"]::selection,
+input[type="checkbox"]:focus
+input[type="checkbox"]::selection {
+  background-color: transparent !important;
+  color:white;
+  pointer-events:none !important;
 }
