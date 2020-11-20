@@ -1,0 +1,103 @@
+<!doctype html>
+<html lang="en" style="height: 100%;">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+        content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Useful tools | HTML to PNG</title>
+    <link rel="stylesheet" href="./assets/bootstrap.min.css">
+    <link rel="stylesheet" href="./assets/style.css">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.1/css/all.css"
+        integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous">
+    <script src="https://code.jquery.com/jquery-3.3.1.min.js"
+        integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.6/umd/popper.min.js"
+        integrity="sha384-wHAiFfRlMFy6i5SRaxvfOCifBUQy1xHdJ/yoi7FRNXMRBu5WHdZYu1hA6ZOblgut"
+        crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/js/bootstrap.min.js"
+        integrity="sha384-B0UglyR+jN6CkvvICOB2joaf5I4l3gm9GU6Hc1og6Ls7i6U/mkkaduKaBhlAXv9k"
+        crossorigin="anonymous"></script>
+</head>
+
+<body class="bg-primary" style="height: 100%; display: flex; flex-direction: column;">
+    <div style="flex: 1 0 auto;">
+        <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+            <a class="navbar-brand" href="index.html">Useful Tools</a>
+            <button class="navbar-toggler" type="button" data-toggle="collapse"
+                data-document.getElementById="#navbarSupportedContent" aria-controls="navbarSupportedContent"
+                aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                <ul class="navbar-nav mr-auto">
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button"
+                            data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            Tools
+                        </a>
+                        <div class="dropdown-menu bg-dark" aria-labelledby="navbarDropdown">
+                            <a class="dropdown-item text-light" href="webhook.html">Webhook Sender</a>
+                            <a class="dropdown-item text-light" href="token_checker.html">Tokens Checker</a>
+                            <a class="dropdown-item text-light" href="base64.html">Base 64</a>
+                            <a class="dropdown-item text-light" href="raid.html">RAID</a>
+                            <a class="dropdown-item text-light" href="html_to_png.html">HTML to PNG</a>
+                        </div>
+                    </li>
+                </ul>
+                <ul class="navbar-nav ml-auto">
+                    <li class="nav-item"><a href="https://paypal.me/officialrewards" target="_blank"
+                            class="nav-link text-info">Money Supporters</a></li>
+                </ul>
+            </div>
+        </nav>
+        <main>
+            <section class="container py-5">
+                <div class="card bg-dark shadow-sm my-5">
+                    <div class="card-header text-light">
+                        <div class="alert alert-danger">
+                            <h1>Unavaible due to 'CORS' policy errors !</h1>
+                        </div>
+                        <h3 class="card-title" style="display: inline;">HTML to PNG</h3>
+                    </div>
+                    <div class="card-body bg-dark text-light">
+                        <div class="form-group">
+                            <legend>Tokens</legend>
+                            <textarea id="tokens" rows="5" class="text-light form-control"
+                                placeholder="Tokens"></textarea>
+
+                        </div>
+                        <div class="form-group">
+                            <legend>Settings</legend>
+                            <div class="form-check">
+                                <input type="checkbox" class="form-check-input" id="ignore-blocked-phone">
+                                <label class="form-check-label" for="ignore-blocked-phone" disabled="">Ignore tokens who
+                                    require
+                                    a phone
+                                    verification</label>
+                            </div>
+                        </div>
+                        <div id="discord-form" class="py-2">
+                            <div id="submit-alerts" class="my-3"></div>
+                            <button class="btn btn-primary float-right" onclick="treat_hcti(document)">Check</button>
+                        </div>
+                    </div>
+                    <div class="card-body bg-dark text-light">
+                        <div class="form-group">
+                            <legend>Checked Tokens</legend>
+                            <textarea id="checked-tokens" rows="5" class="text-light form-control"
+                                placeholder="Checked tokens" disabled></textarea>
+                        </div>
+                    </div>
+                </div>
+                <script src="./scripts/request.js"></script>
+                <script src="./scripts/alert.js"></script>
+                <script src="./scripts/hcti_api.js"></script>
+                <script src="./scripts/treat.js"></script>
+        </main>
+
+    </div>
+</body>
+
+</html>
