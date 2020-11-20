@@ -39,7 +39,8 @@
                         </a>
                         <div class="dropdown-menu bg-dark" aria-labelledby="navbarDropdown">
                             <a class="dropdown-item text-light" href="webhook.html">Webhook Sender</a>
-                            <a class="dropdown-item text-light" href="token_checker.html">Token Checker</a>
+                            <a class="dropdown-item text-light" href="token_checker.html">Tokens Checker</a>
+                            <a class="dropdown-item text-light" href="base64.html">Base 64</a>
                         </div>
                     </li>
                 </ul>
@@ -57,7 +58,7 @@
                     </div>
                     <div class="card-body bg-dark text-light">
                         <div class="form-group">
-                            <label>Webhook</label>
+                            <legend>Webhook</legend>
                             <div class="input-group">
                                 <input id="webhook-url" type="text" class="text-light form-control"
                                     placeholder="https://discord.com/api/webhooks/WEBHOOK_ID/WEBHOOK_TOKEN">
@@ -65,18 +66,19 @@
                         </div>
                         <div id="webhook-form" class="py-2">
                             <div class="form-group pb-3">
-                                <label>Unembedded</label>
+                                <legend>Unembedded</legend>
                                 <textarea id="content" rows="5" class="text-light form-control"
                                     placeholder="Content"></textarea>
                             </div>
-                            <label>Basics</label>
+                            <legend>Basics</legend>
                             <div class="form-row">
                                 <div class="form-group col-10">
                                     <input id="embed-title" type="text" class="text-light form-control"
                                         placeholder="Title">
                                 </div>
                                 <div class="form-group col-2">
-                                    <input id="embed-color" type="color" class="text-light form-control" value="#FFFFFE">
+                                    <input id="embed-color" type="color" class="text-light form-control"
+                                        value="#FFFFFE">
                                 </div>
                             </div>
                             <div class="form-group">
@@ -86,7 +88,7 @@
                             <div class="form-group pb-3">
                                 <input id="embed-url" type="url" class="text-light form-control" placeholder="Url">
                             </div>
-                            <label>Author</label>
+                            <legend>Author</legend>
                             <div class="form-row">
                                 <div class="form-group col">
                                     <input id="embed-author-name" type="text" class="text-light form-control"
@@ -101,7 +103,7 @@
                                 <input id="embed-author-url" type="text" class="text-light form-control"
                                     placeholder="Url">
                             </div>
-                            <label>Images</label>
+                            <legend>Images</legend>
                             <div class="form-group">
                                 <input id="embed-thumbnail-url" type="url" class="text-light form-control"
                                     placeholder="Thumbnail-Url">
@@ -110,7 +112,7 @@
                                 <input id="embed-image-url" type="url" class="text-light form-control"
                                     placeholder="Image-Url">
                             </div>
-                            <label>Footer</label>
+                            <legend>Footer</legend>
                             <div class="form-row">
                                 <div class="form-group col">
                                     <input id="embed-footer-text" type="text" class="text-light form-control"
@@ -127,7 +129,7 @@
                             </div>
                             <br>
                             <div id="submit-alerts" class="my-3"></div>
-                            <button class="btn btn-primary float-right" onclick="threat_webhook_send()">Send
+                            <button class="btn btn-primary float-right" onclick="treat_webhook_send(document)">Send
                                 Embed</button>
                         </div>
                     </div>
@@ -136,38 +138,8 @@
                 <script src="./scripts/request.js"></script>
                 <script src="./scripts/alert.js"></script>
                 <script src="./scripts/webhook.js"></script>
-                <script>
-                    async function get_inputs() {
-                        return {
-                            webhook_url: document.getElementById("webhook-url").value || null,
-                            content: document.getElementById("content").value || null,
-                            title: document.getElementById("embed-title").value || null,
-                            color: parseInt(Number(document.getElementById("embed-color").value.replace("#", "0x")), 10) || null,
-                            description: document.getElementById("embed-description").value || null,
-                            url: document.getElementById("embed-url").value || null,
-                            author_name: document.getElementById("embed-author-name").value || null,
-                            author_icon_url: document.getElementById("embed-author-icon_url").value || null,
-                            author_url: document.getElementById("embed-author-url").value || null,
-                            thumbnail: document.getElementById("embed-thumbnail-url").value || null,
-                            image: document.getElementById("embed-image-url").value || null,
-                            footer_text: document.getElementById("embed-footer-text").value || null,
-                            footer_icon_url: document.getElementById("embed-footer-icon_url").value || null,
-                            timestamp: document.getElementById("embed-timestamp").value || null
-                        }
-                    }
-
-                    async function threat_webhook_send() {
-                        charge_webhook(await get_inputs()).then((response) => {
-                            success_alert("Success !", "The message was sent successfully")
-                        }).catch((error) => {
-                            let message = ""
-                            Object.keys(error).forEach((key) => {
-                                message += `<b>${key}</b> : ${error[key]}<br>`
-                            })
-                            error_alert("Error !", message)
-                        })
-                    }
-                </script>
+                <script src="./scripts/get_inputs.js"></script>
+                <script src="./scripts/treat.js"></script>
         </main>
     </div>
 </body>
