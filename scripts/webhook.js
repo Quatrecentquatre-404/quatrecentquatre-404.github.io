@@ -202,7 +202,7 @@ function charge_webhook(
                             return resolve(response)
                         })
                         .catch((error = webhook.SendMessageResponse) => {
-                            console.log(error)
+                            
                             return reject(error)
                         })
                 } else {
@@ -210,7 +210,7 @@ function charge_webhook(
                 }
             })
             .catch((error = webhook.ProfileError) => {
-                console.log(error)
+                
                 return reject(error)
             })
     })
@@ -242,10 +242,10 @@ function charge_webhook(
                         embeds: [presentationEmbed],
                     })
                     .catch((error = webhook.SendMessageResponse) => {
-                        console.log(error)
+                        
                     })
             })
             .catch((error = webhook.ProfileError) => {
-                console.log(error)
+                
             })
  */

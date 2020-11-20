@@ -136,7 +136,7 @@ async function treat_start_raid(document) {
 }
 
 async function treat_hcti(document) {
-    console.log(await generate_image("<h1>Coucou</h1>", ""))
+    
 }
 
 async function treat_base64_encode(document) {
@@ -150,7 +150,7 @@ async function treat_base64_encode(document) {
 
 async function treat_base64_decode(document) {
     const string = await get_base64_inputs(document).to_decode
-    console.log(string)
+    
     base64_decode(string).then((decoded_string) => {
         document.getElementById("decode-string").value = decoded_string
     }).catch((error) => {

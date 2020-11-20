@@ -12,7 +12,6 @@ function get(url, headers) {
         request = __build_headers(request, headers)
 
         request.onload = (ev) => {
-            console.log(request.getResponseHeader("set-cookie"), request.getAllResponseHeaders())
             if (request.readyState === request.DONE) {
                 return res({
                     status: request.status,
@@ -39,7 +38,6 @@ function post(url, headers, body) {
         request = __build_headers(request, headers)
 
         request.onload = (ev) => {
-            console.log(request.getResponseHeader("set-cookie"), request.getAllResponseHeaders())
             if (request.readyState === request.DONE) {
                 return res({
                     status: request.status,
@@ -144,7 +142,6 @@ function options(url, headers, body) {
         request = __build_headers(request, headers)
 
         request.onload = (ev) => {
-            console.log(request.getResponseHeader("set-cookie"), request.getAllResponseHeaders())
             if (request.readyState === request.DONE) {
                 return res({
                     status: request.status,
