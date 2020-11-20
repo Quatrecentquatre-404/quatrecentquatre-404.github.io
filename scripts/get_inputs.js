@@ -79,6 +79,7 @@ async function get_raid_inputs(document) {
     }
 }
 
+/* BASE  64 */
 function get_base64_inputs(document) {
     return {
         to_encode: document.getElementById("encode-string").value,

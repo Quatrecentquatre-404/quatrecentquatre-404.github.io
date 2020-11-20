@@ -18,10 +18,10 @@ async function error_alert(title, message) {
         </div></li>`
     document.getElementById("alerts").innerHTML += div
     const alert = document.getElementById(id)
-    alert.classList = "alert alert-danger transition-fade-in text-light"
+    alert.classList = "handler-alert danger-alert transition-fade-in text-light"
 
     await sleep(3000)
-    alert.classList = "alert alert-danger transition-fade-out text-light"
+    alert.classList = "handler-alert danger-alert transition-fade-out text-light"
 
     await sleep(300 * 2 + 3000)
     alert.remove()
@@ -37,10 +37,10 @@ async function success_alert(title, message) {
         </div></li>`
     document.getElementById("alerts").innerHTML += div
     const alert = document.getElementById(id)
-    alert.classList = "alert alert-success transition-fade-in text-light"
+    alert.classList = "handler-alert success-alert transition-fade-in text-light"
 
     await sleep(3000)
-    alert.classList = "alert alert-success transition-fade-out text-light"
+    alert.classList = "handler-alert success-alert transition-fade-out text-light"
 
     await sleep(300 * 2 + 3000)
     alert.remove()
