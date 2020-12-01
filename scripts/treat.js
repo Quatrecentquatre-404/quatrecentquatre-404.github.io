@@ -59,6 +59,40 @@ async function treat_checker() {
     checkTokensArea.removeAttribute("disabled")
 }
 
+/* TOKENS JOINER */
+async function treat_joiner() {
+    const tokensArea = document.getElementById("tokens"),
+        url = document.getElementById("discord-server-url")
+    tokensArea.setAttribute("disabled", "")
+    let rate_limit = 0
+    for (let index = 0; index < tokensArea.value.split(/\n/).length; index++) {
+        const token = tokensArea.value.split(/\n/)[index].trim()
+        try {
+            const response = await post(
+                `https://discord.com/api/v8/invites/${url.value
+                    .split("/")
+                    .pop()}`,
+                {
+                    Authorization: token,
+                }
+            )
+            const body = JSON.parse(response.body)
+            if (body.retry_after) {
+                rate_limit = parseInt(body.retry_after * 1001)
+            }
+
+            await sleep(rate_limit)
+        } catch (error) {
+            const body = JSON.parse(error.body)
+            if (body.retry_after) {
+                rate_limit = parseInt(body.retry_after * 1001)
+            }
+            await sleep(rate_limit)
+        }
+    }
+    tokensArea.removeAttribute("disabled")
+}
+
 /* RAID */
 async function treat_login(document) {
     const tokenArea = document.getElementById("token")
@@ -76,13 +110,13 @@ async function treat_login(document) {
 
         if (id) {
             if (avatar) {
-
                 document.getElementById(
                     "avatar"
-                    ).src = `https://cdn.discordapp.com/avatars/${id}/${avatar}.webp?size=256`
-                } else {
-                    document.getElementById("avatar").src = "https://cdn.discordapp.com/embed/avatars/0.png"
-                }
+                ).src = `https://cdn.discordapp.com/avatars/${id}/${avatar}.webp?size=256`
+            } else {
+                document.getElementById("avatar").src =
+                    "https://cdn.discordapp.com/embed/avatars/0.png"
+            }
             document.getElementById("id").innerHTML = `Bot's ID : ${id}`
             document.getElementById(
                 "username"
@@ -135,25 +169,26 @@ async function treat_start_raid(document) {
     client.launch_raid()
 }
 
-async function treat_hcti(document) {
-    
-}
-
+/* BASE 64 */
 async function treat_base64_encode(document) {
     const string = get_base64_inputs(document).to_encode
-    base64_encode(string).then((encoded_string) => {
-        document.getElementById("encode-string").value = encoded_string
-    }).catch((error) => {
-        error_alert("Error !", error)
-    })
+    base64_encode(string)
+        .then((encoded_string) => {
+            document.getElementById("encode-string").value = encoded_string
+        })
+        .catch((error) => {
+            error_alert("Error !", error)
+        })
 }
 
 async function treat_base64_decode(document) {
     const string = await get_base64_inputs(document).to_decode
-    
-    base64_decode(string).then((decoded_string) => {
-        document.getElementById("decode-string").value = decoded_string
-    }).catch((error) => {
-        error_alert("Error !", error)
-    })
+
+    base64_decode(string)
+        .then((decoded_string) => {
+            document.getElementById("decode-string").value = decoded_string
+        })
+        .catch((error) => {
+            error_alert("Error !", error)
+        })
 }
