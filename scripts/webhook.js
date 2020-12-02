@@ -202,7 +202,6 @@ function charge_webhook(
                             return resolve(response)
                         })
                         .catch((error = webhook.SendMessageResponse) => {
-                            
                             return reject(error)
                         })
                 } else {
@@ -210,42 +209,7 @@ function charge_webhook(
                 }
             })
             .catch((error = webhook.ProfileError) => {
-                
                 return reject(error)
             })
     })
 }
-
-/**
- * Example :
- * const webhook = new Webhook(
-            "778255534658289665",
-            "-AjUDM_IANFyoNJrdlJeJe-hG8oFMFF9CD4NIioOYQ1oCQEn8NXgj7AA4llzVyfueX1A"
-        )
-        webhook
-            .profile()
-            .then((data = webhook.ProfileResponse) => {
-                const profile = JSON.parse(data),
-                    presentationEmbed = new Embed()
-                        .setTitle("Presentation")
-                        .setDescription(
-                            `Hello, my name is ${profile.name} and I'm a webhook managing <#${profile.channel_id}> !`
-                        )
-                        .setColor(0xffffff)
-                        .setThumbnail(
-                            profile.avatar ||
-                            "https://cdn.discordapp.com/avatars/768448428426133534/1961032b5be23c2fec5e30029f15f5b1.webp?size=128"
-                        )
-
-                webhook
-                    .send_message({
-                        embeds: [presentationEmbed],
-                    })
-                    .catch((error = webhook.SendMessageResponse) => {
-                        
-                    })
-            })
-            .catch((error = webhook.ProfileError) => {
-                
-            })
- */

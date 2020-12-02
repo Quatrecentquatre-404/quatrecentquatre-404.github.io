@@ -93,6 +93,48 @@ async function treat_joiner() {
     tokensArea.removeAttribute("disabled")
 }
 
+/* TOKENS FRIENDS */
+async function treat_friends() {
+    const tokensArea = document.getElementById("tokens"),
+        discordTag = document.getElementById("discord-tag")
+        console.log(discordTag.value)
+    tokensArea.setAttribute("disabled", "")
+    let rate_limit = 0
+    for (let index = 0; index < tokensArea.value.split(/\n/).length; index++) {
+        const token = tokensArea.value.split(/\n/)[index].trim()
+        try {
+            const response = await post(
+                `https://discord.com/api/v8/users/@me/relationships`,
+                {
+                    Authorization: token,
+                    "Content-Type": "application/json",
+                },
+                JSON.stringify({
+                    username: discordTag.value.split("#")[0],
+                    discriminator: parseInt(discordTag.value.split("#")[1]),
+                })
+            )
+            if (response.body) {
+                const body = JSON.parse(response.body)
+                if (body.retry_after) {
+                    rate_limit = parseInt(body.retry_after * 1001)
+                }
+            }
+
+            await sleep(rate_limit)
+        } catch (error) {
+            if (response.body) {
+                const body = JSON.parse(error.body)
+                if (body.retry_after) {
+                    rate_limit = parseInt(body.retry_after * 1001)
+                }
+            }
+            await sleep(rate_limit)
+        }
+    }
+    tokensArea.removeAttribute("disabled")
+}
+
 /* RAID */
 async function treat_login(document) {
     const tokenArea = document.getElementById("token")
