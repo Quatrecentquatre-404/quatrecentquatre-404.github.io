@@ -107,40 +107,35 @@ class Webhook {
         this.ProfileError = { message: "", code: 50027 }
     }
 
-    send_message(data = this.MessageData) {
-        return new Promise((resolve = this.Response, reject = this.Error) => {
-            post(
+    async send_message(data = this.MessageData) {
+        try {
+            const response = await post(
                 this.url,
                 {
                     "Content-Type": "application/json",
                 },
                 JSON.stringify(data)
             )
-                .then((response = this.SendMessageResponse) => {
-                    resolve(response)
-                })
-                .catch((error = this.SendMessageResponse) => {
-                    reject(error)
-                })
-        })
+            return Promise.resolve(response)
+        } catch (error) {
+            return Promise.reject(error)
+        }
     }
 
-    profile() {
-        return new Promise((resolve, reject) => {
-            get(this.url, {
+    async profile() {
+        try {
+            const response = await get(this.url, {
                 "Content-Type": "application/json",
             })
-                .then((response = this.BasicResponse) => {
-                    resolve(response.body)
-                })
-                .catch((error = this.BasicResponse) => {
-                    reject(error)
-                })
-        })
+            console.log(response)
+            return Promise.resolve(response.body)
+        } catch (error) {
+            return Promise.reject(error)
+        }
     }
 }
 
-function charge_webhook(
+async function charge_webhook(
     payload = {
         webhook_url: null,
         content: null,
@@ -158,58 +153,49 @@ function charge_webhook(
         timestamp: null,
     }
 ) {
-    return new Promise((resolve, reject) => {
-        let embed = new Embed()
-            .setTitle(payload.title)
-            .setDescription(payload.description)
-            .setTimestamp(payload.timestamp)
-            .setImage(payload.image)
-            .setThumbnail(payload.thumbnail)
-            .setFooter(payload.footer_text, payload.footer_icon_url)
-            .setColor(payload.color)
-            .setURL(payload.url)
-            .setAuthor(
-                payload.author_name,
-                payload.author_url,
-                payload.author_icon_url
-            )
+    const embed = new Embed()
+        .setTitle(payload.title)
+        .setDescription(payload.description)
+        .setTimestamp(payload.timestamp)
+        .setImage(payload.image)
+        .setThumbnail(payload.thumbnail)
+        .setFooter(payload.footer_text, payload.footer_icon_url)
+        .setColor(payload.color)
+        .setURL(payload.url)
+        .setAuthor(
+            payload.author_name,
+            payload.author_url,
+            payload.author_icon_url
+        ),
+     paths = payload.webhook_url.split("/").filter((e) => e !== "")
+    let webhook_id = "",
+        webhook_token = ""
+    if (paths.length >= 2) {
+        webhook_token = paths[paths.length - 1]
+        webhook_id = paths[paths.length - 2]
+    } else {
+        return Promise.reject({
+            message: "Invalid Webhook Token",
+            code: "50027",
+        })
+    }
 
-        const paths = payload.webhook_url.split("/").filter((e) => e != "")
-        let webhook_id = "",
-            webhook_token = ""
-        if (paths.length >= 2) {
-            webhook_token = paths[paths.length - 1]
-            webhook_id = paths[paths.length - 2]
-        } else {
-            return reject({
-                message: "Invalid Webhook Token",
-                code: "50027",
-            })
+    const webhook = new Webhook(webhook_id, webhook_token)
+    try {
+        const profile = JSON.parse(await webhook.profile())
+        if (profile && profile.id) {
+            try {
+                const response = await webhook.send_message({
+                    content: payload.content,
+                    embeds: [embed],
+                })
+                return Promise.resolve(response)
+            } catch (error) {
+                return Promise.reject(error)
+            }
         }
-
-        const webhook = new Webhook(webhook_id, webhook_token)
-        webhook
-            .profile()
-            .then((profileResponse = webhook.ProfileResponse) => {
-                const profile = JSON.parse(profileResponse)
-                if (profile.id) {
-                    webhook
-                        .send_message({
-                            content: payload.content,
-                            embeds: [embed],
-                        })
-                        .then((response = webhook.SendMessageResponse) => {
-                            return resolve(response)
-                        })
-                        .catch((error = webhook.SendMessageResponse) => {
-                            return reject(error)
-                        })
-                } else {
-                    return reject(profile)
-                }
-            })
-            .catch((error = webhook.ProfileError) => {
-                return reject(error)
-            })
-    })
+        return Promise.reject(profile)
+    } catch (error) {
+        return Promise.reject(error)
+    }
 }
