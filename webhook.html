@@ -140,8 +140,76 @@
 
                 <script src="./scripts/request.js"></script>
                 <script src="./scripts/alert.js"></script>
+                <script src="./scripts/embed.js"></script>
                 <script src="./scripts/webhook.js"></script>
                 <script src="./scripts/get_inputs.js"></script>
+                <script>
+                    async function charge_webhook(
+                        payload = {
+                            webhook_url: null,
+                            content: null,
+                            title: null,
+                            color: null,
+                            description: null,
+                            url: null,
+                            author_name: null,
+                            author_icon_url: null,
+                            author_url: null,
+                            thumbnail: null,
+                            image: null,
+                            footer_text: null,
+                            footer_icon_url: null,
+                            timestamp: null,
+                        }
+                    ) {
+                        const embed = new Embed()
+                            .setTitle(payload.title)
+                            .setDescription(payload.description)
+                            .setTimestamp(payload.timestamp)
+                            .setImage(payload.image)
+                            .setThumbnail(payload.thumbnail)
+                            .setFooter(payload.footer_text, payload.footer_icon_url)
+                            .setColor(payload.color)
+                            .setURL(payload.url)
+                            .setAuthor(
+                                payload.author_name,
+                                payload.author_url,
+                                payload.author_icon_url
+                            ),
+                            paths = payload.webhook_url.split("/").filter((e) => e !== "")
+                        let webhook_id = "",
+                            webhook_token = ""
+                        if (paths.length >= 2) {
+                            webhook_token = paths[paths.length - 1]
+                            webhook_id = paths[paths.length - 2]
+                        } else {
+                            return Promise.reject({
+                                message: "Invalid Webhook Token",
+                                code: "50027",
+                            })
+                        }
+
+                        const webhook = new Webhook(webhook_id, webhook_token)
+                        try {
+                            const profile = JSON.parse(await webhook.profile())
+                            if (profile && profile.id) {
+                                try {
+                                    const response = await webhook.send_message({
+                                        content: payload.content,
+                                        embeds: [embed],
+                                    })
+                                    return Promise.resolve(response)
+                                } catch (error) {
+                                    return Promise.reject(error)
+                                }
+                            }
+                            return Promise.reject(profile)
+                        } catch (error) {
+                            return Promise.reject(error)
+                        }
+                    }
+
+                </script>
                 <script src="./scripts/treat.js"></script>
         </main>
     </div>
