@@ -1,162 +1,113 @@
-function __build_headers(request = new XMLHttpRequest(), headers = {}) {
-    Object.keys(headers).forEach((key) => {
-        request.setRequestHeader(key, headers[key])
-    })
-    return request
+async function get(url, headers) {
+  const request = new XMLHttpRequest();
+  request.open("GET", url, true);
+
+  Object.keys(headers).forEach((key) => {
+    request.setRequestHeader(key, headers[key]);
+  });
+
+  request.onload = (ev) => {
+    return Promise[request.readyState === request.DONE ? "resolve" : "reject"]({
+      status: request.status,
+      body: request.responseText,
+      headers: request.getAllResponseHeaders(),
+    });
+  };
+
+  request.send(null);
 }
 
-function get(url, headers) {
-    return new Promise((res, rej) => {
-        let request = new XMLHttpRequest()
-        request.open("GET", url, true)
-        request = __build_headers(request, headers)
+async function post(url, headers, body) {
+  const request = new XMLHttpRequest();
+  request.open("POST", url, true);
 
-        request.onload = (ev) => {
-            if (request.readyState === request.DONE) {
-                return res({
-                    status: request.status,
-                    body: request.responseText,
-                    headers: request.getAllResponseHeaders(),
-                })
-            } else {
-                return rej({
-                    status: request.status,
-                    body: request.responseText,
-                    headers: request.getAllResponseHeaders(),
-                })
-            }
-        }
+  Object.keys(headers).forEach((key) => {
+    request.setRequestHeader(key, headers[key]);
+  });
 
-        request.send(null)
-    })
+  request.onload = (ev) => {
+    return Promise[request.readyState === request.DONE ? "resolve" : "reject"]({
+      status: request.status,
+      body: request.responseText,
+      headers: request.getAllResponseHeaders(),
+    });
+  };
+
+  request.send(body);
 }
 
-function post(url, headers, body) {
-    return new Promise((res, rej) => {
-        let request = new XMLHttpRequest()
-        request.open("POST", url, true)
-        request = __build_headers(request, headers)
+async function patch(url, headers, body) {
+  const request = new XMLHttpRequest();
+  request.open("PATCH", url, true);
 
-        request.onload = (ev) => {
-            if (request.readyState === request.DONE) {
-                return res({
-                    status: request.status,
-                    body: request.responseText,
-                    headers: request.getAllResponseHeaders(),
-                })
-            } else {
-                return rej({
-                    status: request.status,
-                    body: request.responseText,
-                    headers: request.getAllResponseHeaders(),
-                })
-            }
-        }
+  Object.keys(headers).forEach((key) => {
+    request.setRequestHeader(key, headers[key]);
+  });
 
-        request.send(body)
-    })
+  request.onload = (ev) => {
+    return Promise[request.readyState === request.DONE ? "resolve" : "reject"]({
+      status: request.status,
+      body: request.responseText,
+      headers: request.getAllResponseHeaders(),
+    });
+  };
+
+  request.send(body);
 }
 
-function patch(url, headers, body) {
-    return new Promise((res, rej) => {
-        let request = new XMLHttpRequest()
-        request.open("PATCH", url, true)
-        request = __build_headers(request, headers)
+async function r_delete(url, headers) {
+  const request = new XMLHttpRequest();
+  request.open("DELETE", url, true);
 
-        request.onload = (ev) => {
-            if (request.readyState === request.DONE) {
-                return res({
-                    status: request.status,
-                    body: request.responseText,
-                    headers: request.getAllResponseHeaders(),
-                })
-            } else {
-                return rej({
-                    status: request.status,
-                    body: request.responseText,
-                    headers: request.getAllResponseHeaders(),
-                })
-            }
-        }
+  Object.keys(headers).forEach((key) => {
+    request.setRequestHeader(key, headers[key]);
+  });
 
-        request.send(body)
-    })
+  request.onload = (ev) => {
+    return Promise[request.readyState === request.DONE ? "resolve" : "reject"]({
+      status: request.status,
+      body: request.responseText,
+      headers: request.getAllResponseHeaders(),
+    });
+  };
+
+  request.send(null);
 }
 
-function r_delete(url, headers) {
-    return new Promise((res, rej) => {
-        let request = new XMLHttpRequest()
-        request.open("DELETE", url, true)
-        request = __build_headers(request, headers)
+async function put(url, headers, body) {
+  const request = new XMLHttpRequest();
+  request.open("PUT", url, true);
 
-        request.onload = (ev) => {
-            if (request.readyState === request.DONE) {
-                return res({
-                    status: request.status,
-                    body: request.responseText,
-                    headers: request.getAllResponseHeaders(),
-                })
-            } else {
-                return rej({
-                    status: request.status,
-                    body: request.responseText,
-                    headers: request.getAllResponseHeaders(),
-                })
-            }
-        }
+  Object.keys(headers).forEach((key) => {
+    request.setRequestHeader(key, headers[key]);
+  });
 
-        request.send(null)
-    })
+  request.onload = (ev) => {
+    return Promise[request.readyState === request.DONE ? "resolve" : "reject"]({
+      status: request.status,
+      body: request.responseText,
+      headers: request.getAllResponseHeaders(),
+    });
+  };
+
+  request.send(body);
 }
 
-function put(url, headers, body) {
-    return new Promise((res, rej) => {
-        let request = new XMLHttpRequest()
-        request.open("PUT", url, true)
-        request = __build_headers(request, headers)
+async function options(url, headers, body) {
+  const request = new XMLHttpRequest();
+  request.open("OPTIONS", url, true);
 
-        request.onload = (ev) => {
-            if (request.readyState === request.DONE) {
-                return res({
-                    status: request.status,
-                    body: request.responseText,
-                    headers: request.getAllResponseHeaders(),
-                })
-            } else {
-                return rej({
-                    status: request.status,
-                    body: request.responseText,
-                    headers: request.getAllResponseHeaders(),
-                })
-            }
-        }
+  Object.keys(headers).forEach((key) => {
+    request.setRequestHeader(key, headers[key]);
+  });
 
-        request.send(body)
-    })
-}
+  request.onload = (ev) => {
+    return Promise[request.readyState === request.DONE ? "resolve" : "reject"]({
+      status: request.status,
+      body: request.responseText,
+      headers: request.getAllResponseHeaders(),
+    });
+  };
 
-function options(url, headers, body) {
-    return new Promise((res, rej) => {
-        let request = new XMLHttpRequest()
-        request.open("OPTIONS", url, true)
-        request = __build_headers(request, headers)
-
-        request.onload = (ev) => {
-            if (request.readyState === request.DONE) {
-                return res({
-                    status: request.status,
-                    body: request.responseText,
-                    headers: request.getAllResponseHeaders(),
-                })
-            } else {
-                return rej({
-                    status: request.status,
-                    body: request.responseText,
-                    headers: request.getAllResponseHeaders(),
-                })
-            }
-        }
-
-        request.send(body)
-    })
+  request.send(body);
 }
