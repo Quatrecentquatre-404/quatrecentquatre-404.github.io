@@ -1,16 +1,11 @@
 /* WEBHOOK SENDER */
 async function treat_webhook_send(document) {
-    charge_webhook(await get_webhook_inputs(document))
-        .then((response) => {
-            success_alert("Success !", "The message was sent successfully")
-        })
-        .catch((error) => {
-            let message = ""
-            Object.keys(error).forEach((key) => {
-                message += `<b>${key}</b> : ${error[key]}<br>`
-            })
-            error_alert("Error !", message)
-        })
+    const response = charge_webhook(await get_webhook_inputs(document))
+    if (response) {
+        success_alert("Success !", "The message was sent successfully")
+    } else {
+        error_alert("Error !", "Unable to charge the webhook")
+    }
 }
 
 /* TOKENS CHECKER */
@@ -97,7 +92,6 @@ async function treat_joiner() {
 async function treat_friends() {
     const tokensArea = document.getElementById("tokens"),
         discordTag = document.getElementById("discord-tag")
-        console.log(discordTag.value)
     tokensArea.setAttribute("disabled", "")
     let rate_limit = 0
     for (let index = 0; index < tokensArea.value.split(/\n/).length; index++) {

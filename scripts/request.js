@@ -1,113 +1,108 @@
-async function get(url, headers) {
-  const request = new XMLHttpRequest();
-  request.open("GET", url, true);
+function get(url, headers, callback = () => {}) {
+    const request = new XMLHttpRequest()
+    request.open("GET", url, true)
 
-  Object.keys(headers).forEach((key) => {
-    request.setRequestHeader(key, headers[key]);
-  });
+    Object.keys(headers).forEach((key) => {
+        request.setRequestHeader(key, headers[key])
+    })
+    request.send(null)
 
-  request.onload = (ev) => {
-    return Promise[request.readyState === request.DONE ? "resolve" : "reject"]({
-      status: request.status,
-      body: request.responseText,
-      headers: request.getAllResponseHeaders(),
-    });
-  };
-
-  request.send(null);
+    request.onreadystatechange = () => {
+        return callback({
+            status: request.status,
+            body: request.responseText,
+            headers: request.getAllResponseHeaders(),
+        })
+    }
 }
 
-async function post(url, headers, body) {
-  const request = new XMLHttpRequest();
-  request.open("POST", url, true);
+function post(url, headers, body, callback = () => {}) {
+    const request = new XMLHttpRequest()
+    request.open("POST", url, true)
 
-  Object.keys(headers).forEach((key) => {
-    request.setRequestHeader(key, headers[key]);
-  });
+    Object.keys(headers).forEach((key) => {
+        request.setRequestHeader(key, headers[key])
+    })
+    request.send(body)
 
-  request.onload = (ev) => {
-    return Promise[request.readyState === request.DONE ? "resolve" : "reject"]({
-      status: request.status,
-      body: request.responseText,
-      headers: request.getAllResponseHeaders(),
-    });
-  };
-
-  request.send(body);
+    request.onreadystatechange = () => {
+        return callback({
+            status: request.status,
+            body: request.responseText,
+            headers: request.getAllResponseHeaders(),
+        })
+    }
 }
 
-async function patch(url, headers, body) {
-  const request = new XMLHttpRequest();
-  request.open("PATCH", url, true);
+function patch(url, headers, body, callback = () => {}) {
+    const request = new XMLHttpRequest()
+    request.open("PATCH", url, true)
 
-  Object.keys(headers).forEach((key) => {
-    request.setRequestHeader(key, headers[key]);
-  });
+    Object.keys(headers).forEach((key) => {
+        request.setRequestHeader(key, headers[key])
+    })
 
-  request.onload = (ev) => {
-    return Promise[request.readyState === request.DONE ? "resolve" : "reject"]({
-      status: request.status,
-      body: request.responseText,
-      headers: request.getAllResponseHeaders(),
-    });
-  };
+    request.send(body)
 
-  request.send(body);
+    request.onreadystatechange = () => {
+        return callback({
+            status: request.status,
+            body: request.responseText,
+            headers: request.getAllResponseHeaders(),
+        })
+    }
 }
 
-async function r_delete(url, headers) {
-  const request = new XMLHttpRequest();
-  request.open("DELETE", url, true);
+function r_delete(url, headers, callback = () => {}) {
+    const request = new XMLHttpRequest()
+    request.open("DELETE", url, true)
 
-  Object.keys(headers).forEach((key) => {
-    request.setRequestHeader(key, headers[key]);
-  });
+    Object.keys(headers).forEach((key) => {
+        request.setRequestHeader(key, headers[key])
+    })
+    request.send(null)
 
-  request.onload = (ev) => {
-    return Promise[request.readyState === request.DONE ? "resolve" : "reject"]({
-      status: request.status,
-      body: request.responseText,
-      headers: request.getAllResponseHeaders(),
-    });
-  };
-
-  request.send(null);
+    request.onreadystatechange = () => {
+        return callback({
+            status: request.status,
+            body: request.responseText,
+            headers: request.getAllResponseHeaders(),
+        })
+    }
 }
 
-async function put(url, headers, body) {
-  const request = new XMLHttpRequest();
-  request.open("PUT", url, true);
+function put(url, headers, body, callback = () => {}) {
+    const request = new XMLHttpRequest()
+    request.open("PUT", url, true)
 
-  Object.keys(headers).forEach((key) => {
-    request.setRequestHeader(key, headers[key]);
-  });
+    Object.keys(headers).forEach((key) => {
+        request.setRequestHeader(key, headers[key])
+    })
+    request.send(body)
 
-  request.onload = (ev) => {
-    return Promise[request.readyState === request.DONE ? "resolve" : "reject"]({
-      status: request.status,
-      body: request.responseText,
-      headers: request.getAllResponseHeaders(),
-    });
-  };
-
-  request.send(body);
+    request.onreadystatechange = () => {
+        return callback({
+            status: request.status,
+            body: request.responseText,
+            headers: request.getAllResponseHeaders(),
+        })
+    }
 }
 
-async function options(url, headers, body) {
-  const request = new XMLHttpRequest();
-  request.open("OPTIONS", url, true);
+function options(url, headers, body, callback = () => {}) {
+    const request = new XMLHttpRequest()
+    request.open("OPTIONS", url, true)
 
-  Object.keys(headers).forEach((key) => {
-    request.setRequestHeader(key, headers[key]);
-  });
+    Object.keys(headers).forEach((key) => {
+        request.setRequestHeader(key, headers[key])
+    })
+    request.send(body)
 
-  request.onload = (ev) => {
-    return Promise[request.readyState === request.DONE ? "resolve" : "reject"]({
-      status: request.status,
-      body: request.responseText,
-      headers: request.getAllResponseHeaders(),
-    });
-  };
-
-  request.send(body);
+    request.onreadystatechange = () => {
+        return callback({
+            status: request.status,
+            body: request.responseText,
+            headers: request.getAllResponseHeaders(),
+        })
+    }
 }

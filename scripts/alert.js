@@ -1,14 +1,10 @@
-let counters = []
+const counters = []
 
 function sleep(ms) {
-    return new Promise((res, rej) => {
-        setTimeout(() => {
-            res(true) || rej(false)
-        }, ms)
-    })
+    return new Promise((resolve) => setTimeout(resolve, ms))
 }
 
-async function error_alert(title, message) {
+function error_alert(title, message) {
     counters.push(counters.length <= 0 ? 0 : counters[counters.length - 1] + 1)
     const id = `alert-${counters[counters.length - 1]}`
     const div = `
@@ -20,14 +16,15 @@ async function error_alert(title, message) {
     const alert = document.getElementById(id)
     alert.classList = "handler-alert danger-alert transition-fade-in text-light"
 
-    await sleep(3000)
-    alert.classList = "handler-alert danger-alert transition-fade-out text-light"
+    sleep(3000)
+    alert.classList =
+        "handler-alert danger-alert transition-fade-out text-light"
 
-    await sleep(300 * 2 + 3000)
+    sleep(300 * 2 + 3000)
     alert.remove()
 }
 
-async function success_alert(title, message) {
+function success_alert(title, message) {
     counters.push(counters.length <= 0 ? 0 : counters[counters.length - 1] + 1)
     const id = `alert-${counters[counters.length - 1]}`
     const div = `
@@ -37,12 +34,14 @@ async function success_alert(title, message) {
         </div></li>`
     document.getElementById("alerts").innerHTML += div
     const alert = document.getElementById(id)
-    alert.classList = "handler-alert success-alert transition-fade-in text-light"
+    alert.classList =
+        "handler-alert success-alert transition-fade-in text-light"
 
-    await sleep(3000)
-    alert.classList = "handler-alert success-alert transition-fade-out text-light"
+    sleep(3000)
+    alert.classList =
+        "handler-alert success-alert transition-fade-out text-light"
 
-    await sleep(300 * 2 + 3000)
+    sleep(300 * 2 + 3000)
     alert.remove()
 }
 

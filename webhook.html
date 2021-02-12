@@ -64,14 +64,15 @@
                             <legend>Webhook</legend>
                             <div class="input-group">
                                 <input id="webhook-url" type="text" class="text-light form-control"
-                                    placeholder="https://discord.com/api/webhooks/WEBHOOK_ID/WEBHOOK_TOKEN">
+                                    placeholder="https://discord.com/api/webhooks/WEBHOOK_ID/WEBHOOK_TOKEN"
+                                    value="https://discord.com/api/webhooks/809846596959207454/b-7sNr_kL6r3rFCtw3G01FJwRWAZ-J6LKxSF8epDgyNIfwXuHl79s8ttpnVTj2kOvVLB">
                             </div>
                         </div>
                         <div id="webhook-form" class="py-2">
                             <div class="form-group pb-3">
                                 <legend>Unembedded</legend>
                                 <textarea id="content" rows="5" class="text-light form-control"
-                                    placeholder="Content"></textarea>
+                                    placeholder="Content">Hello</textarea>
                             </div>
                             <legend>Basics</legend>
                             <div class="form-row">
@@ -144,7 +145,7 @@
                 <script src="./scripts/webhook.js"></script>
                 <script src="./scripts/get_inputs.js"></script>
                 <script>
-                    async function charge_webhook(
+                    function charge_webhook(
                         payload = {
                             webhook_url: null,
                             content: null,
@@ -162,51 +163,36 @@
                             timestamp: null,
                         }
                     ) {
-                        const embed = new Embed()
-                            .setTitle(payload.title)
-                            .setDescription(payload.description)
-                            .setTimestamp(payload.timestamp)
-                            .setImage(payload.image)
-                            .setThumbnail(payload.thumbnail)
-                            .setFooter(payload.footer_text, payload.footer_icon_url)
-                            .setColor(payload.color)
-                            .setURL(payload.url)
-                            .setAuthor(
-                                payload.author_name,
-                                payload.author_url,
-                                payload.author_icon_url
-                            ),
-                            paths = payload.webhook_url.split("/").filter((e) => e !== "")
-                        let webhook_id = "",
-                            webhook_token = ""
+                        const paths = payload.webhook_url.split("/").filter((e) => e !== "")
                         if (paths.length >= 2) {
-                            webhook_token = paths[paths.length - 1]
-                            webhook_id = paths[paths.length - 2]
+                            const embed = new Embed()
+                                .setTitle(payload.title)
+                                .setDescription(payload.description)
+                                .setTimestamp(payload.timestamp)
+                                .setImage(payload.image)
+                                .setThumbnail(payload.thumbnail)
+                                .setFooter(payload.footer_text, payload.footer_icon_url)
+                                .setColor(payload.color)
+                                .setURL(payload.url)
+                                .setAuthor(
+                                    payload.author_name,
+                                    payload.author_url,
+                                    payload.author_icon_url
+                                ),
+                                webhook_token = paths[paths.length - 1],
+                                webhook_id = paths[paths.length - 2],
+                                webhook = new Webhook(webhook_id, webhook_token)
+                            return webhook.send_message({
+                                content: payload.content,
+                                embeds: [embed],
+                            })
                         } else {
-                            return Promise.reject({
+                            return {
                                 message: "Invalid Webhook Token",
                                 code: "50027",
-                            })
-                        }
-
-                        const webhook = new Webhook(webhook_id, webhook_token)
-                        try {
-                            const profile = JSON.parse(await webhook.profile())
-                            if (profile && profile.id) {
-                                try {
-                                    const response = await webhook.send_message({
-                                        content: payload.content,
-                                        embeds: [embed],
-                                    })
-                                    return Promise.resolve(response)
-                                } catch (error) {
-                                    return Promise.reject(error)
-                                }
                             }
-                            return Promise.reject(profile)
-                        } catch (error) {
-                            return Promise.reject(error)
                         }
+                        return null
                     }
 
                 </script>

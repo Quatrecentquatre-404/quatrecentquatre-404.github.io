@@ -22,30 +22,24 @@ class Webhook {
         this.ProfileError = { message: "", code: 50027 }
     }
 
-    async send_message(data = this.MessageData) {
-        try {
-            const response = await post(
-                this.url,
-                {
-                    "Content-Type": "application/json",
-                },
-                JSON.stringify(data)
-            )
-            return Promise.resolve(response)
-        } catch (error) {
-            return Promise.reject(error)
-        }
+    send_message(data = this.MessageData) {
+        return post(
+            this.url,
+            {
+                "Content-Type": "application/json",
+            },
+            JSON.stringify(data),
+            (response) => response
+        )
     }
 
-    async profile() {
-        try {
-            const response = await get(this.url, {
+    profile() {
+        return get(
+            this.url,
+            {
                 "Content-Type": "application/json",
-            })
-            console.log(response)
-            return Promise.resolve(response.body)
-        } catch (error) {
-            return Promise.reject(error)
-        }
+            },
+            (response) => response
+        )
     }
 }
