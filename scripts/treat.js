@@ -11,45 +11,39 @@ async function treat_webhook_send(document) {
 /* TOKENS CHECKER */
 async function treat_checker() {
     const tokensArea = document.getElementById("tokens"),
-        valid_tokens = [],
         checkTokensArea = document.getElementById("checked-tokens"),
         ignorification = document.getElementById("ignore-blocked-phone").checked
     tokensArea.setAttribute("disabled", "")
     checkTokensArea.setAttribute("disabled", "")
     let rate_limit = 0
-    for (let index = 0; index < tokensArea.value.split(/\n/).length; index++) {
-        const token = tokensArea.value.split(/\n/)[index].trim()
-        try {
-            const response = await get(
-                "https://discord.com/api/v8/users/@me/connections",
-                {
-                    Authorization: token,
+    for (let index = 0; index < tokensArea.value.split("\n").length; index++) {
+        const token = tokensArea.value.split("\n")[index].trim()
+        get(
+            "https://discord.com/api/v8/users/@me/connections",
+            {
+                Authorization: token,
+            },
+            async (response) => {
+                try {
+                    const body = JSON.parse(response.body)
+                    if (body.retry_after) {
+                        rate_limit = parseInt(body.retry_after * 1001)
+                    } else if (
+                        (Array.isArray(body) ||
+                            (!ignorification &&
+                                body.code &&
+                                body.code === 40002)) &&
+                        !checkTokensArea.innerHTML.includes(token)
+                    ) {
+                        checkTokensArea.innerHTML += token + "\n"
+                    }
+                    await sleep(rate_limit)
+                } catch (_) {
+                    0
                 }
-            )
-            const body = JSON.parse(response.body)
-            if (body.retry_after) {
-                rate_limit = parseInt(body.retry_after * 1001)
-            } else if (Array.isArray(body)) {
-                valid_tokens.push(token)
-            } else if (!ignorification && body.code && body.code === 40002) {
-                valid_tokens.push(token)
             }
-            await sleep(rate_limit)
-        } catch (error) {
-            const body = JSON.parse(error.body)
-            if (body.retry_after) {
-                rate_limit = parseInt(body.retry_after * 1001)
-            } else if (!ignorification && body.code && body.code === 40002) {
-                valid_tokens.push(token)
-            }
-            await sleep(rate_limit)
-        }
+        )
     }
-    valid_tokens.forEach((token, i) => {
-        checkTokensArea.innerHTML += `${token}${
-            i < valid_tokens.length - 1 ? "\n" : ""
-        }`
-    })
     tokensArea.removeAttribute("disabled")
     checkTokensArea.removeAttribute("disabled")
 }
@@ -62,28 +56,25 @@ async function treat_joiner() {
     let rate_limit = 0
     for (let index = 0; index < tokensArea.value.split(/\n/).length; index++) {
         const token = tokensArea.value.split(/\n/)[index].trim()
-        try {
-            const response = await post(
-                `https://discord.com/api/v8/invites/${url.value
-                    .split("/")
-                    .pop()}`,
-                {
-                    Authorization: token,
-                }
-            )
-            const body = JSON.parse(response.body)
-            if (body.retry_after) {
-                rate_limit = parseInt(body.retry_after * 1001)
-            }
+        post(
+            `https://discord.com/api/v8/invites/${url.value.split("/").pop()}`,
+            {
+                Authorization: token,
+            },
+            "",
+            async (response) => {
+                try {
+                    const body = JSON.parse(response.body)
+                    if (body.retry_after) {
+                        rate_limit = parseInt(body.retry_after * 1001)
+                    }
 
-            await sleep(rate_limit)
-        } catch (error) {
-            const body = JSON.parse(error.body)
-            if (body.retry_after) {
-                rate_limit = parseInt(body.retry_after * 1001)
+                    await sleep(rate_limit)
+                } catch (_) {
+                    0
+                }
             }
-            await sleep(rate_limit)
-        }
+        )
     }
     tokensArea.removeAttribute("disabled")
 }
@@ -96,113 +87,30 @@ async function treat_friends() {
     let rate_limit = 0
     for (let index = 0; index < tokensArea.value.split(/\n/).length; index++) {
         const token = tokensArea.value.split(/\n/)[index].trim()
-        try {
-            const response = await post(
-                `https://discord.com/api/v8/users/@me/relationships`,
-                {
-                    Authorization: token,
-                    "Content-Type": "application/json",
-                },
-                JSON.stringify({
-                    username: discordTag.value.split("#")[0],
-                    discriminator: parseInt(discordTag.value.split("#")[1]),
-                })
-            )
-            if (response.body) {
-                const body = JSON.parse(response.body)
-                if (body.retry_after) {
-                    rate_limit = parseInt(body.retry_after * 1001)
+        post(
+            `https://discord.com/api/v8/users/@me/relationships`,
+            {
+                Authorization: token,
+                "Content-Type": "application/json",
+            },
+            JSON.stringify({
+                username: discordTag.value.split("#")[0],
+                discriminator: parseInt(discordTag.value.split("#")[1]),
+            }),
+            async (response) => {
+                try {
+                    const body = JSON.parse(response.body)
+                    if (body.retry_after) {
+                        rate_limit = parseInt(body.retry_after * 1001)
+                    }
+                    await sleep(rate_limit)
+                } catch (_) {
+                    0
                 }
             }
-
-            await sleep(rate_limit)
-        } catch (error) {
-            if (response.body) {
-                const body = JSON.parse(error.body)
-                if (body.retry_after) {
-                    rate_limit = parseInt(body.retry_after * 1001)
-                }
-            }
-            await sleep(rate_limit)
-        }
+        )
     }
     tokensArea.removeAttribute("disabled")
-}
-
-/* RAID */
-async function treat_login(document) {
-    const tokenArea = document.getElementById("token")
-    tokenArea.setAttribute("disabled", "")
-    const token = tokenArea.value.trim()
-    let rate_limit = 0
-    try {
-        const body = await client.login(token)
-        if (body.retry_after) {
-            rate_limit = parseInt(body.retry_after * 1001)
-        } else if (Array.isArray(body)) {
-            valid_tokens.push(token)
-        }
-        const { id, username, avatar, discriminator } = body
-
-        if (id) {
-            if (avatar) {
-                document.getElementById(
-                    "avatar"
-                ).src = `https://cdn.discordapp.com/avatars/${id}/${avatar}.webp?size=256`
-            } else {
-                document.getElementById("avatar").src =
-                    "https://cdn.discordapp.com/embed/avatars/0.png"
-            }
-            document.getElementById("id").innerHTML = `Bot's ID : ${id}`
-            document.getElementById(
-                "username"
-            ).innerHTML = `Bot's Username : ${username}`
-            document.getElementById(
-                "discriminator"
-            ).innerHTML = `Bot's Discriminator : #${discriminator}`
-            document.getElementById(
-                "invitation-url"
-            ).innerHTML = `Bot's Invitation URL : <a class="text-info" target="_BLANK" href="https://discord.com/api/oauth2/authorize?client_id=${id}&permissions=8&scope=bot">Click here</a>`
-            document.getElementById("settings").removeAttribute("hidden", "")
-            Object.keys(body).forEach((key) => {
-                client[key] = body[key]
-            })
-            client.__raid_config = await get_raid_inputs(document)
-        } else {
-            document.getElementById(
-                "avatar"
-            ).src = `https://cdn.discordapp.com/embed/avatars/0.png`
-            document.getElementById("id").innerHTML = `Bot's ID`
-            document.getElementById("username").innerHTML = `Bot's Username`
-            document.getElementById(
-                "discriminator"
-            ).innerHTML = `Bot's Discriminator`
-            document.getElementById(
-                "invitation-url"
-            ).innerHTML = `Bot's Invitation URL`
-            document.getElementById("settings").removeAttribute("hidden", "")
-            let message = ""
-            Object.keys(body).forEach((key) => {
-                message += `<b>${key}</b> : ${body[key]}<br>`
-            })
-            error_alert("Error !", message)
-            document.getElementById("settings").setAttribute("hidden", "")
-        }
-        await sleep(rate_limit)
-    } catch (error) {
-        const body = error.body
-        if (body.retry_after) {
-            rate_limit = parseInt(body.retry_after * 1001)
-        }
-        document.getElementById("settings").setAttribute("hidden", "")
-        await sleep(rate_limit)
-    }
-    tokenArea.removeAttribute("disabled")
-}
-
-async function treat_start_raid(document) {
-    client.__handle_raid = !client.__handle_raid
-    client.launch_raid()
 }
 
 /* BASE 64 */
@@ -219,7 +127,6 @@ async function treat_base64_encode(document) {
 
 async function treat_base64_decode(document) {
     const string = await get_base64_inputs(document).to_decode
-
     base64_decode(string)
         .then((decoded_string) => {
             document.getElementById("decode-string").value = decoded_string
