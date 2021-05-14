@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="en" style="height: 100%;">
+<html lang="fr">
 
 <head>
     <meta charset="UTF-8">
@@ -7,51 +7,81 @@
         content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Useful tools | Home</title>
-    <link rel="stylesheet" href="./assets/css/bootstrap.min.css">
-    <link rel="stylesheet" href="./assets/css/fontawesome.css">
-    <link rel="stylesheet" href="./assets/css/style.css">
+    <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Raleway">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <style>
+        body,
+        h1,
+        h2,
+        h3,
+        h4,
+        h5,
+        h6 {
+            font-family: "Raleway", sans-serif
+        }
+
+        body,
+        html {
+            height: 100%;
+            line-height: 1.8;
+            background-color: rgb(24, 26, 27) !important;
+            color: rgb(232, 230, 227) !important;
+        }
+
+        .wallpaper {
+            background-position: center;
+            background-size: cover;
+            background-image: url("./assets/img/mac.jpg");
+            min-height: 100%;
+        }
+
+        .w3-bar .w3-button {
+            padding: 16px;
+        }
+
+        .w3-white,
+        .w3-hover-white:hover {
+            color: rgb(216, 212, 207) !important;
+            background-color: rgb(19, 21, 22) !important;
+        }
+
+        .w3-button:hover {
+            color: rgb(205, 200, 194) !important;
+            background-color: rgb(24, 26, 27) !important;
+        }
+
+        *::selection {
+            background: rgba(75, 75, 70, 0.2) !important;
+        }
+    </style>
     <link rel="shortcut icon" href="./assets/img/logo.png">
 </head>
 
-<body class="bg-primary" style="height: 100%; display: flex; flex-direction: column;">
-    <div style="flex: 1 0 auto;">
-        <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
-            <a class="navbar-brand" href="index.html">Useful Tools</a>
-            <div class="collapse navbar-collapse">
-                <ul class="navbar-nav mr-auto">
-                    <li class="nav-item">
-                        <a class="nav-link text-light" href="webhook.html">Webhook Sender</a>
-                    </li>
-                    <li class="nav-item"><a class="nav-link text-light" href="token_checker.html">Tokens
-                            Checker</a></li>
-                    <li class="nav-item"><a class="nav-link text-light" href="token_joiner.html">Tokens Joiner</a>
-                    </li>
-                    <li class="nav-item"><a class="nav-link text-light" href="token_friends.html">Token Friends</a>
-                    </li>
-                    <li class="nav-item"><a class="nav-link text-light" href="base64.html">Base 64</a></li>
-                </ul>
-
-            </div>
-        </nav>
-        <main>
-            <div class="text-light container py-5">
-                <section>
-                    <h1 class="text-light">Presentation :</h1>
-                    <p>This website has been created by <a class="text-info"
-                            href="https://github.com/quatrecentquatre-404" target="_blank">Quatrecentquatre</a> to make
-                        life of people easier. it's a static website so there
-                        isn't any backend. That's why I can host it in GitHub and why I don't want to spend money for
-                        nothing.
-                    </p>
-                </section>
-                <br>
-                <section class="mt-5">
-                    <h1 class="text-light">Tools :</h1>
-                    <p>You can find all tools at the top of the page, in the "Tools" dropdown menu.</p>
-                </section>
-            </div>
-        </main>
+<body>
+    <!-- Navbar (sit on top) -->
+    <div class="w3-top">
+        <div class="w3-bar w3-white w3-card" id="myNavbar">
+            <a href="#" class="w3-bar-item w3-button w3-wide">HOME</a>
+        </div>
     </div>
+
+    <!-- Header with full-height image -->
+    <header class="wallpaper w3-display-container w3-grayscale-min" id="home">
+        <div class="w3-display-left w3-text-white" style="padding:48px">
+            <span class="w3-jumbo w3-hide-small">Quatrecentquatre, développeur.</span><br>
+            <span class="w3-large">Python / JavaScript / HTML x CSS / PHP.</span>
+            <p><a href="https://github.com/quatrecentquatre-404/"
+                    class="w3-button w3-white w3-padding-large w3-large w3-margin-top w3-opacity">See
+                    repositories</a></p>
+        </div>
+        <div class="w3-display-bottomleft w3-text-grey w3-large" style="padding:24px 48px">
+            <a href="http://github.com/quatrecentquatre-404" target="_blank" rel="noopener noreferrer"><i
+                    class="fa fa-twitter w3-hover-opacity"></i></a>
+            <a href="http://github.com/quatrecentquatre-404" target="_blank" rel="noopener noreferrer"><i
+                    class="fa fa-github w3-hover-opacity"></i></a>
+        </div>
+    </header>
 </body>
 
 </html>

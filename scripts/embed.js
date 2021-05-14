@@ -4,30 +4,22 @@ class Embed {
     }
 
     setTitle(title = null) {
-        if (title) {
-            this.title = title
-        }
+        if (title) this.title = title
         return this
     }
 
     setDescription(description = null) {
-        if (description) {
-            this.description = description
-        }
+        if (description) this.description = description
         return this
     }
 
     setURL(url = null) {
-        if (url) {
-            this.url = url
-        }
+        if (url) this.url = url
         return this
     }
 
     setColor(color = null) {
-        if (color) {
-            this.color = color
-        }
+        if (color) this.color = color
         return this
     }
 
@@ -39,33 +31,29 @@ class Embed {
     setFooter(text = null, icon_url = null) {
         if (text) {
             this.footer = {
-                text: text,
-                icon_url: icon_url,
+                text,
+                icon_url,
             }
         }
         return this
     }
 
     setThumbnail(url = null) {
-        if (url) {
-            this.thumbnail = { url: url }
-        }
+        if (url) this.thumbnail = { url }
         return this
     }
 
     setImage(url = null) {
-        if (url) {
-            this.image = { url: url }
-        }
+        if (url) this.image = { url }
         return this
     }
 
     setAuthor(name = null, url = null, icon_url = null) {
         if (name) {
             this.author = {
-                name: name,
-                url: url,
-                icon_url: icon_url,
+                name,
+                url,
+                icon_url,
             }
         }
         return this
@@ -74,9 +62,9 @@ class Embed {
     addField(name = null, value = null, inline = false) {
         if (name && value) {
             this.fields.push({
-                name: name,
-                value: value,
-                inline: inline,
+                name,
+                value,
+                inline,
             })
         }
         return this
