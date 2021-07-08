@@ -9,6 +9,7 @@
     <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Raleway">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="shortcut icon" href="assets/img/logo.png">
     <style>
         body,
         h1,
@@ -28,11 +29,25 @@
             color: rgb(232, 230, 227) !important;
         }
 
-        .wallpaper {
+        .background-image {
+            position: fixed;
+            left: 0;
+            right: 0;
+            z-index: 1;
+            display: block;
+            background-image: url("assets/img/mac.jpg");
+            background-color: rgb(0, 0, 0) !important;
+            width: 100%;
+            height: 100%;
+            filter: blur(4px) opacity(0.5);
             background-position: center;
             background-size: cover;
-            background-image: url("assets/img/mac.jpg");
-            min-height: 100%;
+            background-attachment: fixed;
+        }
+
+        .wallpaper {
+            top: 50%;
+            z-index: 9999;
         }
 
         .w3-bar .w3-button {
@@ -53,30 +68,102 @@
         *::selection {
             background: rgba(75, 75, 70, 0.2) !important;
         }
+
+        .code {
+            background-color: #22272e;
+        }
+
+        .code .keywords {
+            color: #6cb6ff;
+        }
+
+        .code .code {
+            color: #dcbdfb;
+        }
+
+        .code .strings {
+            color: #96d0ff;
+        }
+
+        .code .tab {
+            margin-left: 40px;
+        }
+
+        .code .comments {
+            color: rgba(108, 182, 255, 0.3);
+        }
+
+        .code .line {
+            color: rgba(108, 182, 255, 0.3);
+            padding: 0 10px;
+            width: 30px;
+            text-align: right;
+        }
     </style>
-    <link rel="shortcut icon" href="assets/img/logo.png">
 </head>
 
 <body>
+    <div class="background-image"></div>
     <div class="w3-top">
         <div class="w3-bar w3-white w3-card" id="myNavbar">
             <a href="#" class="w3-bar-item w3-button w3-wide">HOME</a>
         </div>
     </div>
-
     <header class="wallpaper w3-display-container w3-grayscale-min" id="home">
-        <div class="w3-display-left w3-text-white" style="padding:48px">
-            <span class="w3-jumbo w3-hide-small">Quatrecentquatre, développeur.</span><br>
-            <span class="w3-large">Python / JavaScript / HTML x CSS / PHP.</span>
+        <div class="w3-display-left w3-text-white" style="padding:48px; top: 50%;">
+            <span class="w3-jumbo w3-hide-small">Quatrecentquatre,</span><br>
+            <span class="w3-large">Python / Assembly (Intel x86_64) / Web full stack.</span>
+        <br>
             <p><a href="https://github.com/quatrecentquatre-404/"
                     class="w3-button w3-white w3-padding-large w3-large w3-margin-top w3-opacity">See
                     repositories</a></p>
-        </div>
-        <div class="w3-display-bottomleft w3-text-grey w3-large" style="padding:24px 48px">
-            <a href="https://twitter.com/Quatrecentquat2" target="_blank"><i
-                    class="fa fa-twitter w3-hover-opacity"></i></a>
-            <a href="http://github.com/quatrecentquatre-404" target="_blank"><i
-                    class="fa fa-github w3-hover-opacity"></i></a>
+        <br>
+            <p>Current project, <a href="https://github.com/Quatrecentquatre-404/nasm_std_lib" target="_blank"
+                    rel="noopener noreferer"><span class="w3-hover-opacity">stdlib in assembly</span></a> Intel
+                x86_64
+                Linux :</p>
+            <div class="code" style="margin-top: 28px; border-radius: 8px;">
+                <p id="code-container" style="padding: 20px; font-family: ui-monospace,SFMono-Regular,SF Mono,Consolas,Liberation Mono,Menlo,monospace; font-size: 14px;line-height: 1.5;">
+; It uses the stdlib I made from scratch with system calls and stack management.
+<br>
+BITS 64
+<br>
+<br>
+%include "./stdlib/core.asm"
+<br>
+<br>
+section .data
+<br>
+    hello_world db "Hello world !",0
+<br>
+<br>
+section .text
+<br>
+    global _start
+<br>
+<br>
+_start:
+<br>
+    _STD_PRINTLN hello_world
+<br>
+    _STD_EXIT 0
+<br>
+
+                </p>
+            </div>
+            <script src="./assets/js/linter.js"></script>
+            <script>
+                lintIt(document.querySelector("#code-container"))
+            </script>
+        <br><br>
+            <div class="w3-display-bottomleft w3-text-grey w3-large" style="padding:24px 48px">
+                <a href="https://github.com/quatrecentquatre-404" target="_blank"><i
+                        class="fa fa-github w3-hover-opacity"></i></a>
+                <a href="https://www.youtube.com/channel/UCsDNyITNlRVKRgMe9tA0f-A" target="_blank"><i
+                        class="fa fa-youtube w3-hover-opacity"></i></a>
+                <a href="https://twitter.com/Quatrecentquat2" target="_blank"><i
+                        class="fa fa-twitter w3-hover-opacity"></i></a>
+            </div>
         </div>
     </header>
 </body>
